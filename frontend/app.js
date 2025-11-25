@@ -168,11 +168,11 @@ class PresentationEngine {
     }
 
     /**
-     * Zoom in
+     * Zoom in (50% increments)
      */
     zoomIn() {
-        if (this.zoomLevel < 2) {
-            this.zoomLevel += 0.1;
+        if (this.zoomLevel < 2.5) {
+            this.zoomLevel += 0.5;
             this.slideContainer.style.transform = `scale(${this.zoomLevel})`;
             this.showNotification(`Zoom: ${Math.round(this.zoomLevel * 100)}%`);
             console.log(`Zoom level: ${this.zoomLevel.toFixed(2)}`);
@@ -180,11 +180,11 @@ class PresentationEngine {
     }
 
     /**
-     * Zoom out
+     * Zoom out (50% increments)
      */
     zoomOut() {
         if (this.zoomLevel > 0.5) {
-            this.zoomLevel -= 0.1;
+            this.zoomLevel -= 0.5;
             this.slideContainer.style.transform = `scale(${this.zoomLevel})`;
             this.showNotification(`Zoom: ${Math.round(this.zoomLevel * 100)}%`);
             console.log(`Zoom level: ${this.zoomLevel.toFixed(2)}`);
