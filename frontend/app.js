@@ -43,7 +43,18 @@ class PresentationEngine {
      * Load all slides from the slides directory
      */
     async loadSlides() {
-        const slideFiles = ['slide1.html', 'slide2.html', 'slide3.html'];
+        const slideFiles = [
+            '01_title.html',
+            '02_problem.html',
+            '03_global.html',
+            '04_not_migrating.html',
+            '05_saesi.html',
+            '06_case_cwdm.html',
+            '07_case_ekurhuleni.html',
+            '08_framework.html',
+            '09_conclusion.html',
+            '10_thankyou.html'
+        ];
         
         for (const file of slideFiles) {
             try {
