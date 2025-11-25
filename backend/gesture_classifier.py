@@ -99,11 +99,10 @@ class GestureClassifier:
                 self.current_gesture = None
                 self.gesture_start_time = current_time
         
-        # If no gesture detected, increment neutral frame count
+        # Only increment neutral frame count when truly no gesture detected
         if not detected_gesture:
             self.neutral_frame_count += 1
-        else:
-            self.neutral_frame_count = 0
+        # Don't reset neutral count here - only reset when gesture is confirmed
         
         return None
     
