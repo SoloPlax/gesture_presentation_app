@@ -251,43 +251,27 @@ class GestureClassifier:
         return is_frame_hand(landmarks_list[0]) and is_frame_hand(landmarks_list[1])
     
     def _detect_zoom_out_gesture(self, landmarks_list):
-        """Detect two hands with 3 fingers moving together."""
+        """Detect two hands with 3 fingers extended (thumb, index, middle)."""
         if len(landmarks_list) != 2:
             return False
         
         def is_three_finger_hand(landmarks):
+            # Thumb extended (horizontally away from palm)
             thumb_extended = abs(landmarks[4]['x'] - landmarks[2]['x']) > 0.04
+            
+            # Index and middle fingers extended (tips above middle joints)
             index_extended = landmarks[8]['y'] < landmarks[6]['y']
             middle_extended = landmarks[12]['y'] < landmarks[10]['y']
+            
+            # Ring and pinky curled (tips below middle joints)
             ring_curled = landmarks[16]['y'] > landmarks[14]['y']
             pinky_curled = landmarks[20]['y'] > landmarks[18]['y']
             
             return (thumb_extended and index_extended and middle_extended and
                    ring_curled and pinky_curled)
         
-        if not (is_three_finger_hand(landmarks_list[0]) and 
-                is_three_finger_hand(landmarks_list[1])):
-            return False
-        
-        # Track hand distance
-        hand1_wrist = np.array([landmarks_list[0][0]['x'], landmarks_list[0][0]['y']])
-        hand2_wrist = np.array([landmarks_list[1][0]['x'], landmarks_list[1][0]['y']])
-        current_distance = np.linalg.norm(hand1_wrist - hand2_wrist)
-        
-        self.previous_positions.append(current_distance)
-        
-        if len(self.previous_positions) < 5:
-            return False
-        
-        start_distance = self.previous_positions[0]
-        end_distance = self.previous_positions[-1]
-        moving_together = (start_distance - end_distance) > self.zoom_threshold
-        
-        if moving_together:
-            self.previous_positions.clear()
-            return True
-        
-        return False
+        # Both hands must show 3-finger gesture
+        return is_three_finger_hand(landmarks_list[0]) and is_three_finger_hand(landmarks_list[1])
     
     def get_gesture_info(self, command):
         """Get human-readable information about a gesture command."""
