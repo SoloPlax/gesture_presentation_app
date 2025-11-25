@@ -1,0 +1,9 @@
+backend/venv/
+__pycache__/
+*.pyc
+.DS_Store
+~$*.docx
+*.pyo
+.idea/
+.vscode/
+.env
