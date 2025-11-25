@@ -88,7 +88,16 @@ class GestureClassifier:
                     self.last_confirmed_gesture = detected_gesture
                     self.neutral_frame_count = 0  # Reset neutral counter
                     self.gesture_start_time = None  # Reset for next detection
+                    self.current_gesture = None  # Reset so gesture can be re-detected
                     return detected_gesture
+        
+        # If gesture is being held but gesture_start_time is None (after previous detection)
+        # and cooldown has passed, allow re-detection
+        elif detected_gesture and not self.gesture_start_time:
+            if current_time - self.last_command_time >= self.command_cooldown:
+                # Reset to allow new detection of same gesture
+                self.current_gesture = None
+                self.gesture_start_time = current_time
         
         # If no gesture detected, increment neutral frame count
         if not detected_gesture:
