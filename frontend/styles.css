@@ -240,6 +240,7 @@ body.presenting footer {
 
 body.presenting main {
     padding: 0;
+    overflow: hidden;
 }
 
 body.presenting #slide-container {
@@ -248,6 +249,24 @@ body.presenting #slide-container {
     height: 100vh;
     border-radius: 0;
     aspect-ratio: auto;
+    transform-origin: center center;
+}
+
+/* Fullscreen Mode - ensure zoom works properly */
+:fullscreen #slide-container,
+::backdrop {
+    overflow: hidden;
+}
+
+:fullscreen main {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+:fullscreen #slide-container {
+    transform-origin: center center;
 }
 
 /* Animations */
