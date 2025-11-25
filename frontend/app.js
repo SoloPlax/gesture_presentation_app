@@ -171,7 +171,7 @@ class PresentationEngine {
      * Zoom in (50% increments)
      */
     zoomIn() {
-        if (this.zoomLevel < 2.5) {
+        if (this.zoomLevel < 5.0) {
             this.zoomLevel += 0.5;
             this.slideContainer.style.transform = `scale(${this.zoomLevel})`;
             this.showNotification(`Zoom: ${Math.round(this.zoomLevel * 100)}%`);
