@@ -23,16 +23,16 @@ class GestureClassifier:
         self.gesture_threshold = 0.15
         self.zoom_threshold = 0.1
         
-        # Gesture stability tracking (Hold Duration)
+        # Gesture stability tracking (Hold Duration) - Reduced for faster response
         self.current_gesture = None
         self.gesture_start_time = None
-        self.gesture_hold_duration = 0.4  # Seconds to hold before triggering
+        self.gesture_hold_duration = 0.2  # Seconds to hold before triggering (reduced from 0.4)
         self.gesture_frame_buffer = deque(maxlen=15)  # Track recent gesture detections
         
         # Transition guard
         self.last_confirmed_gesture = None
         self.neutral_frame_count = 0
-        self.required_neutral_frames = 3  # Frames of "no gesture" required between commands
+        self.required_neutral_frames = 2  # Frames of "no gesture" required between commands (reduced from 3)
         
     def classify_gesture(self, landmarks_list):
         """
@@ -100,15 +100,15 @@ class GestureClassifier:
     
     def _is_gesture_stable(self, gesture):
         """Check if gesture has been consistently detected in recent frames."""
-        if len(self.gesture_frame_buffer) < 10:
+        if len(self.gesture_frame_buffer) < 6:
             return False
         
         # Count how many recent frames show this gesture
-        recent_frames = list(self.gesture_frame_buffer)[-10:]
+        recent_frames = list(self.gesture_frame_buffer)[-6:]
         gesture_count = sum(1 for g in recent_frames if g == gesture)
         
-        # Require 80% consistency (8 out of 10 frames)
-        return gesture_count >= 8
+        # Require 67% consistency (4 out of 6 frames) - reduced for faster response
+        return gesture_count >= 4
     
     def _detect_current_gesture(self, landmarks_list):
         """Detect the current gesture without stability checks."""
