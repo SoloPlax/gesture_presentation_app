@@ -260,30 +260,34 @@ class PresentationEngine {
         document.addEventListener('keydown', (e) => {
             switch(e.key) {
                 case 'ArrowRight':
-                case 'PageDown':
                     this.nextSlide();
                     break;
                 case 'ArrowLeft':
-                case 'PageUp':
                     this.prevSlide();
                     break;
-                case '+':
-                case '=':
+                case 'ArrowUp':
                     this.zoomIn();
                     break;
-                case '-':
-                case '_':
+                case 'ArrowDown':
                     this.zoomOut();
+                    break;
+                case ' ':  // Space bar
+                    e.preventDefault();  // Prevent page scroll
+                    this.pausePresentation();
+                    break;
+                case 's':
+                case 'S':
+                    this.startPresentation();
+                    break;
+                case 'f':
+                case 'F':
+                    this.toggleFullscreen();
                     break;
                 case 'Home':
                     this.showSlide(0);
                     break;
                 case 'End':
                     this.showSlide(this.slides.length - 1);
-                    break;
-                case 'f':
-                case 'F':
-                    this.toggleFullscreen();
                     break;
                 case 'Escape':
                     if (document.fullscreenElement) {
