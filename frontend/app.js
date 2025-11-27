@@ -182,11 +182,11 @@ class PresentationEngine {
     }
 
     /**
-     * Zoom in (50% increments)
+     * Zoom in (20% increments)
      */
     zoomIn() {
         if (this.zoomLevel < 5.0) {
-            this.zoomLevel += 0.5;
+            this.zoomLevel += 0.2;
             this.slideContainer.style.transform = `scale(${this.zoomLevel})`;
             this.showNotification(`Zoom: ${Math.round(this.zoomLevel * 100)}%`);
             console.log(`Zoom level: ${this.zoomLevel.toFixed(2)}`);
@@ -194,11 +194,11 @@ class PresentationEngine {
     }
 
     /**
-     * Zoom out (50% increments)
+     * Zoom out (20% increments)
      */
     zoomOut() {
-        if (this.zoomLevel > 0.5) {
-            this.zoomLevel -= 0.5;
+        if (this.zoomLevel > 0.2) {
+            this.zoomLevel -= 0.2;
             this.slideContainer.style.transform = `scale(${this.zoomLevel})`;
             this.showNotification(`Zoom: ${Math.round(this.zoomLevel * 100)}%`);
             console.log(`Zoom level: ${this.zoomLevel.toFixed(2)}`);
@@ -296,6 +296,7 @@ class PresentationEngine {
                     break;
                 case 'f':
                 case 'F':
+                    e.preventDefault();  // Prevent browser's Find dialog
                     this.toggleFullscreen();
                     break;
                 case 'Home':
