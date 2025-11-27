@@ -188,6 +188,24 @@ main {
     font-size: 0.9em;
 }
 
+/* Photo Box and Image Styling */
+.photo-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.slide-photo {
+    max-width: 100%;
+    max-height: 320px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    margin-top: 20px;
+}
+
 /* Notification Toast */
 #notification {
     position: fixed;
