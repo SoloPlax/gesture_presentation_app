@@ -56,9 +56,12 @@ class PresentationEngine {
             '10_thankyou.html'
         ];
         
+        // Add timestamp to prevent caching
+        const cacheBuster = `?t=${Date.now()}`;
+        
         for (const file of slideFiles) {
             try {
-                const response = await fetch(`slides/${file}`);
+                const response = await fetch(`slides/${file}${cacheBuster}`);
                 const html = await response.text();
                 this.slides.push(html);
             } catch (error) {
@@ -209,9 +212,10 @@ class PresentationEngine {
         if (!this.isPresenting) {
             this.isPresenting = true;
             document.body.classList.add('presenting');
-            this.showSlide(0);
-            this.showNotification('Presentation Started 🎬');
-            console.log('✓ Presentation started');
+            // Resume from current slide instead of restarting from slide 0
+            this.showSlide(this.currentSlideIndex);
+            this.showNotification('Presentation Resumed 🎬');
+            console.log('✓ Presentation resumed');
         }
     }
 
